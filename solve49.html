@@ -1,0 +1,123 @@
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+        
+
+    var points = eval('[{"y":2,"x":1},{"y":0,"x":2},{"y":2,"x":3},{"y":0,"x":4},{"y":2,"x":5},{"y":0,"x":6},{"y":1,"x":4},{"y":3,"x":5},{"y":1,"x":6},{"y":2,"x":4},{"y":0,"x":5},{"y":2,"x":6},{"y":4,"x":5},{"y":6,"x":6},{"y":5,"x":4},{"y":3,"x":3},{"y":1,"x":2},{"y":3,"x":1},{"y":1,"x":0},{"y":2,"x":2},{"y":0,"x":3},{"y":1,"x":5},{"y":3,"x":6},{"y":5,"x":5},{"y":3,"x":4},{"y":1,"x":3},{"y":0,"x":1},{"y":2,"x":0},{"y":4,"x":1},{"y":6,"x":0},{"y":5,"x":2},{"y":4,"x":4},{"y":5,"x":6},{"y":6,"x":4},{"y":4,"x":3},{"y":6,"x":2},{"y":5,"x":0},{"y":4,"x":2},{"y":6,"x":3},{"y":5,"x":1},{"y":3,"x":0},{"y":1,"x":1},{"y":3,"x":2},{"y":4,"x":0},{"y":6,"x":1},{"y":5,"x":3},{"y":6,"x":5},{"y":4,"x":6}]') 
+
+    var MAX = 7;
+
+    $(document).ready(function() {
+
+        $('<table id="matrix"/>').appendTo('.display');
+
+        for (x = 0; x < MAX; x++) {
+            var row = '<tr>';
+            
+            for (y = 0; y < MAX; y++) {
+                row += '<td><div/></td>';
+            }
+            
+            $('#matrix').append(row);
+        }
+
+    });
+
+    function run() {
+
+
+//            setValue(points[jump], 1 + parseInt(jump));
+
+            
+        fadeInCell(0);
+
+
+
+    }
+
+
+    function fadeInCell(jump) {
+
+        if (jump < points.length) {
+            var cell = getCell(points[jump]);
+
+            $(cell).html('<div class="jump_' + jump + '">' + jump + '</div>');
+            $(cell).toggleClass("jumped");
+            $('.jump_' + jump).hide().fadeIn("slow", function() {
+                fadeInCell(jump + 1);
+            });
+        }
+    }
+
+    function getCell(point) {
+        var table = document.getElementById('matrix');
+        var row = table.rows[point.y];
+        var cell = row.cells[point.x];
+        return cell;
+    }
+
+
+    function setValue(point, value) {
+        console.log(point);
+        var table = document.getElementById('matrix');
+        var row = table.rows[point.y];
+        var cell = row.cells[point.x];
+
+
+        $(cell).html('<div class="jump_' + value + '">' + value + '</div>');
+        
+
+
+        $('.jump_' + value).hide().fadeIn('slow');
+
+
+        cell.className = "jumped";
+    }
+
+    </script>
+
+    <style type="text/css">
+
+
+        #matrix {
+            table-layout:fixed;
+        }
+
+        #matrix tr td { 
+            height: 60px;
+            width: 50px;
+            border:solid;
+        }
+        #matrix tr td.jumped {
+            background-color: #E06666;            
+        }
+
+
+        #matrix tr td.jumped div {
+            
+            text-align: center;
+            font-family: Helvetica, Arial, Sans-Serif; 
+            
+        } 
+    </style>
+</head>
+<!--
+<body >
+<canvas id="myCanvas" width="1000" height="1000">
+</canvas>
+-->
+<body>
+
+
+<div class="display"></div>
+
+<div>
+    <p>
+        <button onClick="run();">run</button>
+    </p>
+</div>
+</body>
+
+
+</html>
