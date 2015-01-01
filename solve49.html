@@ -42,7 +42,7 @@
         if (jump < points.length) {
             var cell = getCell(points[jump]);
 
-            $(cell).html('<div class="jump_' + jump + '">' + jump + '</div>');
+            $(cell).html('<div class="jump_' + jump + '">' + (jump + 1) + '</div>');
             $(cell).toggleClass("jumped");
             $('.jump_' + jump).hide().fadeIn("slow", function() {
                 fadeInCell(jump + 1);
