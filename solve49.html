@@ -10,6 +10,13 @@
 
     $(document).ready(function() {
 
+        buildMatrix();
+
+    });
+
+    function buildMatrix() {
+        $('#matrix').remove();
+
         $('<table id="matrix"/>').appendTo('.display');
 
         for (x = 0; x < MAX; x++) {
@@ -21,18 +28,15 @@
             
             $('#matrix').append(row);
         }
-
-    });
+    }
 
     function run() {
 
-
-//            setValue(points[jump], 1 + parseInt(jump));
-
+        buildMatrix();
+        
+        $('#runButton').prop('disabled', true);
             
         fadeInCell(0);
-
-
 
     }
 
@@ -47,6 +51,8 @@
             $('.jump_' + jump).hide().fadeIn("slow", function() {
                 fadeInCell(jump + 1);
             });
+        } else {
+            $('#runButton').prop('disabled', false);
         }
     }
 
@@ -55,24 +61,6 @@
         var row = table.rows[point.y];
         var cell = row.cells[point.x];
         return cell;
-    }
-
-
-    function setValue(point, value) {
-        console.log(point);
-        var table = document.getElementById('matrix');
-        var row = table.rows[point.y];
-        var cell = row.cells[point.x];
-
-
-        $(cell).html('<div class="jump_' + value + '">' + value + '</div>');
-        
-
-
-        $('.jump_' + value).hide().fadeIn('slow');
-
-
-        cell.className = "jumped";
     }
 
     </script>
@@ -114,7 +102,7 @@
 
 <div>
     <p>
-        <button onClick="run();">run</button>
+        <button id="runButton" onClick="run();">run</button>
     </p>
 </div>
 </body>
